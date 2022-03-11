@@ -79,6 +79,8 @@ h3 {
 
 input[type="checkbox"] {
   /* vertical-align: bottom; */
+  width: 20px;
+  height: 20px;
 }
 
 input[type="text"]:focus {
@@ -89,6 +91,7 @@ input[type="text"]:focus {
 }
 
 input[type="text"] {
+  padding: 8px;
   outline: none;
   border: none;
   background: none;
@@ -106,4 +109,6 @@ input[type="text"] {
   /* background: #d0f0ed;*/
   height: 30px;
   padding: 5px;
+  border-bottom: 1px solid rgb(214, 223, 226);
+  padding-bottom: 33px;
 }
