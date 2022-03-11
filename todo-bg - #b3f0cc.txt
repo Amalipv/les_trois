@@ -1,0 +1,7 @@
+todo-bg - #b3f0cc
+in progress - 9ce9b9bf
+completed - #74cf98d6;
+
+add event listener for all the buttons
+93d9b4
+5dae9b
