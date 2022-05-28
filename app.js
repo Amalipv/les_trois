@@ -12,42 +12,20 @@ const thirdPanel = document.querySelector(".completed");
   plusTodo.addEventListener("click", () => {
     //open dialog to get the value
     const task = prompt("Enter the task");
-    addElements(task, panels[0]);
+    addElements(task, panels[0], Date.now() / 1000 | 0);
   });
 
   inProTodo.addEventListener("click", () => {
     const task = prompt("Enter the task");
-    addElements(task, panels[1]);
+    addElements(task, panels[1],Date.now() / 1000 | 0);
   });
 
   compTodo.addEventListener("click", () => {
     const task = prompt("Enter the task");
-    addElements(task, panels[2]);
+    addElements(task, panels[2],Date.now() / 1000 | 0);
   });
   
-  const addElements = (task, panelName) => {
-    console.log("Inside addElements");
-     const panel = document.querySelector(`.${panelName}`);
-    var divEle = document.createElement("div");
-    divEle.setAttribute("class", "task");
-    divEle.setAttribute("draggable","true");
-    divEle.setAttribute("ondragstart","drag(event)");
-    divEle.setAttribute("id",Date.now() / 1000 | 0);
-
-    var checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-
-    var todo = document.createElement("input");
-    todo.type = "text";
-    todo.value = task;
-
-    divEle.appendChild(checkbox);
-    divEle.appendChild(todo);
-    panel.appendChild(divEle);
-
-    
-  }
-
+  
  
 /*saves the list to LocalStorage*/
   const saveinLS = () => {
@@ -75,25 +53,8 @@ const thirdPanel = document.querySelector(".completed");
    
 
   /* */
-  const loadFromLS = () => {
-    console.log("loading from localStorage");
-    if(typeof(Storage) != undefined){
-      
-      for(var panel of panels){
-        console.log(`getting item of ${panel}`);
-        if(localStorage.getItem(panel) != ''){
-        let items= JSON.parse(localStorage.getItem(panel));
-        console.log(`Items present : ${items}`);
-        for(var item of items){
-          addElements(item, panel);
-        }
-      }
-      }
-      
-    }
-  }
-  /*Check for existing Todos and load them from LS */
-loadFromLS();
+  
+  
 
 /*Calls the save method for every 5 seconds */
  const todoTimeout = setInterval(saveinLS,5000);
@@ -124,3 +85,48 @@ const drag = (event) =>{
   //todo1: save the list to localstorage for every 10 seconds
   //todo2: render back the list to DOM
   //todo3: include date picker and store date as key
+/*Check for existing Todos and load them from LS */
+const loadFromLS = () => {
+    console.log("loading from localStorage");
+    if(typeof(Storage) != undefined){
+      let id=0;
+      for(var panel of panels){
+        let panelItems = localStorage.getItem(panel);
+        console.log(`getting item of ${panel} - ${panelItems}`);
+        if(panelItems != '' && panelItems != null){
+          let items= JSON.parse(localStorage.getItem(panel));
+          console.log(`Items present : ${items}`);
+          for(var item of items){
+            id++;
+            addElements(item, panel,id);
+          }
+        }
+      }
+    }
+  }
+
+  const addElements = (task, panelName, id) => {
+    console.log("Inside addElements");
+     const panel = document.querySelector(`.${panelName}`);
+    var divEle = document.createElement("div");
+    divEle.setAttribute("class", "task");
+    divEle.setAttribute("draggable","true");
+    divEle.setAttribute("ondragstart","drag(event)");
+    divEle.setAttribute("id",id);
+
+    var checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+
+    var todo = document.createElement("input");
+    todo.type = "text";
+    todo.value = task;
+
+    divEle.appendChild(checkbox);
+    divEle.appendChild(todo);
+    panel.appendChild(divEle);
+
+    
+  }
+
+
+loadFromLS();

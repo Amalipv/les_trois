@@ -42,6 +42,7 @@ body {
 
 .completed {
   background-color: #12a9b026;
+  overflow: scroll;
 }
 
 h3 {
@@ -111,4 +112,11 @@ input[type="text"] {
   padding: 5px;
   border-bottom: 1px solid rgb(214, 223, 226);
   padding-bottom: 33px;
+}
+
+.completed input[type="text"] {
+  text-decoration: line-through;
+}
+
+.completed input[type="checkbox"] {
 }
